@@ -22,14 +22,14 @@ async function main() {
   const tasks = await snapshot("pid", "name", "cpu", "pmem");
   let isFoundProcess = false;
   tasks.forEach((task) => {
-    if (task.name.indexOf("chrom") > -1 && task.pid === 17009) {
+    if (task.name.indexOf("chrom") > -1 && task.pid === 24160) {
       isFoundProcess = true;
       task.vmem = task.vmem / 1024 / 1024;
       task.pmem = task.pmem / 1024 / 1024;
       console.log(`${Date.now()} | ${task.pid} | ${task.name} | ${task.cpu} | ${task.pmem}`);
     }
   });
-  if (!isFoundProcess) console.log(`${Date.now()} | Not found process`);
+  if (!isFoundProcess) console.log(`${Date.now()} | 0 | 0 | 0 | 0 | Not found process`);
 }
 
 setInterval(main, 3000);

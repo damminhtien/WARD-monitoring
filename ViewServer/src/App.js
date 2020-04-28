@@ -4,10 +4,22 @@ import axios from "axios";
 import moment from "moment";
 import "./App.css";
 
+import DatePicker from "./container/DatePicker";
+
 function App() {
+  const [startDate, setStartDate] = useState(new Date((new Date()).getTime() - 3600000));
+  const [endDate, setEndDate] = useState(new Date((new Date()).getTime() + 3600000));
   const [timeLog, setTimeLog] = useState([]);
   const [cpuLog, setCpuLog] = useState([]);
   const [memLog, setMemLog] = useState([]);
+
+  function handleChangeStartDate(date) {
+    setStartDate(date);
+  }
+
+  function handleChangeEndDate(date) {
+    setEndDate(date);
+  }
 
   useEffect(() => {
     const requestTimer = setInterval(() => {
@@ -17,12 +29,12 @@ function App() {
           const data = response.data;
           console.log(
             data.cpuLog.x.map((time) =>
-              moment(Number(time)).format("YYYY-MM-DD hh:mm:ss")
+              moment(Number(time)).format("YYYY-MM-DD HH:mm:ss")
             )
           );
           setTimeLog(
             data.cpuLog.x.map((time) =>
-              moment(Number(time)).format("YYYY-MM-DD hh:mm:ss")
+              moment(Number(time)).format("YYYY-MM-DD HH:mm:ss")
             )
           );
           setCpuLog(data.cpuLog.y);
@@ -40,6 +52,10 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        Start time <DatePicker date={startDate} onChange={handleChangeStartDate} />
+        End time <DatePicker date={endDate} onChange={handleChangeEndDate} />
+      </div>
       <Plot
         className="ProcessPlot"
         data={[
@@ -57,8 +73,10 @@ function App() {
           width: 1800,
           height: 480,
           title: "Monitoring Memory Usage",
+          paper_bgcolor: "rgba(0,0,0,0)",
+          plot_bgcolor: "rgba(0,0,0,0)",
           xaxis: {
-            range: ["2020-04-24 12:00:00", "2020-04-24 13:40:00"],
+            range: [startDate, endDate],
           },
         }}
       />
@@ -79,8 +97,10 @@ function App() {
           width: 1800,
           height: 480,
           title: "Monitoring CPU Usage",
+          paper_bgcolor: "rgba(0,0,0,0)",
+          plot_bgcolor: "rgba(0,0,0,0)",
           xaxis: {
-            range: ["2020-04-24 12:00:00", "2020-04-24 13:40:00"],
+            range: [startDate, endDate],
           },
         }}
       />
