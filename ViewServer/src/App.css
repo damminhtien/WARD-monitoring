@@ -1,25 +1,45 @@
 .App {
-  width: 100vw;
+  width: 98vw;
   height: 100vh;
-
 }
 
 body {
-	background: linear-gradient(-45deg, #dbf5fc, #f7e8d5, #f7ddf2, #f0f0d8);
-	background-size: 400% 400%;
-	animation: gradient 300s ease infinite;
+  background: linear-gradient(-45deg, #dbf5fc, #f7e8d5, #f7ddf2, #f0f0d8);
+  background-size: 400% 400%;
+  animation: gradient 300s ease infinite;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CPU_Circle_Bar {
+  width: 10%;
+  padding-right: 20px;
+}
+
+/* .Main_Chart {
+  display: flex;
+  justify-content: space-between;
+} */
+
+.Date_Time_Box {
+  padding: 20px;
+  border: 2px dashed black;
+  height: 20%;
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .ProcessPlot {

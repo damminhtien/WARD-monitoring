@@ -34,6 +34,34 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/:process", (req, res) => {
+  let timeLog = [];
+  let cpuLog = [];
+  let memLog = [];
+  fs.readFile("debug.log", function (err, buf) {
+    const arrlog = buf.toString().split("\n");
+    timeLog = arrlog.map((log) => {
+      return log.split(" | ")[0];
+    });
+    cpuLog = arrlog.map((log) => {
+      return log.split(" | ")[3];
+    });
+    memLog = arrlog.map((log) => {
+      return log.split(" | ")[4];
+    });
+    res.json({
+      cpuLog: {
+        x: timeLog,
+        y: cpuLog,
+      },
+      memLog: {
+        x: timeLog,
+        y: memLog,
+      },
+    });
+  });
+});
+
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
 );
